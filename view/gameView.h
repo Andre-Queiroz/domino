@@ -6,3 +6,5 @@
 #define DOMINO_GAMEVIEW_H
 
 #endif //DOMINO_GAMEVIEW_H
+
+void showPieces(struct Piece p);
