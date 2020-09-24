@@ -3,5 +3,7 @@ project(Domino)
 
 set(CMAKE_CXX_STANDARD 14)
 
+include_directories(controller)
+
 add_executable(Domino
-        main.c)
+        main.c controller/gameController.c controller/gameController.h)
