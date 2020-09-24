@@ -1,9 +1,8 @@
 #include <stdio.h>
+#include "gameController.h"
 
 int main(){
-
-    printf("Hello world\n");
-
+    newGame();
     return 0;
 }
 
