@@ -8,3 +8,8 @@
 #endif //DOMINO_GAMEVIEW_H
 
 void showPieces(struct Piece p);
+
+int showMainMenu();
+
+void showActionMenu();
+
