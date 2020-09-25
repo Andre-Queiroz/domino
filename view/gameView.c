@@ -1,10 +1,8 @@
 //
 // Created by Caio Baracat on 24/09/20.
 //
-#include "gameController.h"
-#include "gameModel.h"
+
 #include "gameView.h"
-#include <stdio.h>
 
 void showPieces(struct Piece p) {
     printf("[ %d | %d ]\n", p.SideA, p.SideB);
@@ -35,4 +33,21 @@ void showActionMenu() {
     printf("[3] Comprar peca\n");
     printf("[4] Jogar\n");
     printf("[5] Voltar ao menu principal\n\n");
+}
+
+void alert(char message[]) {
+    printf(message);
+}
+
+void askPlayerNickname(char nickname[], int playerTurn)
+{
+    printf("Qual o nome do jogador %d?\n", playerTurn);
+    scanf("%s", nickname);
+}
+
+void showPLayers(struct Player players[])
+{
+    for (int x = 0; x < 2; x++) {
+        printf("O jogador %d é %s\n", players[x].playerTurn, players[x].nickname);
+    }
 }

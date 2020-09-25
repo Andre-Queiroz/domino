@@ -13,7 +13,11 @@ typedef struct Piece {
 } Piece;
 
 typedef struct Player {
+    int playerTurn;
+    char nickname[50];
     struct Piece hand[7];
 } Player;
 
 void fillPieces(struct Piece bank[]);
+
+void setPlayers(struct Player players[]);

@@ -6,6 +6,7 @@
 #define DOMINO_GAMECONTROLLER_H
 
 #endif //DOMINO_GAMECONTROLLER_H
-
+#include "stdbool.h"
+#include "gameView.h"
 
 void newGame();

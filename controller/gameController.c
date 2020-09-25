@@ -3,16 +3,12 @@
 //
 
 #include "gameController.h"
-#include "gameModel.h"
-#include "gameView.h"
 
 struct Piece bank[28];
+struct Player players[2];
 
-void newGame()
-{
+void newGame() {
     fillPieces(bank);
-
-    for (int x = 0; x < 28; x++) {
-        showPieces(bank[x]);
-    }
+    setPlayers(players);
+    showPLayers(players);
 }
