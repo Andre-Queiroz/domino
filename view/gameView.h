@@ -7,9 +7,17 @@
 
 #endif //DOMINO_GAMEVIEW_H
 
-void showPieces(struct Piece p);
+#include "gameModel.h"
+#include "stdio.h"
 
 int showMainMenu();
 
+void showPieces(struct Piece p);
+
 void showActionMenu();
 
+void alert(char message[]);
+
+void askPlayerNickname(char nickname[], int playerTurn);
+
+void showPLayers(struct Player players[]);
