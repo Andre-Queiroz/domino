@@ -22,3 +22,38 @@ void setPlayers(Game *game)
     askPlayerNickname(game->player1.nickname, 1);
     askPlayerNickname(game->player2.nickname, 2);
 }
+
+void gameStart(Game *game)
+{
+    bool gameEnded = false;
+    game->turn = 1;
+
+    do {
+        if (game->turn == 1) {
+            turn(game->player1);
+            game->turn = 2;
+        } else{
+            turn(game->player2);
+            game->turn = 1;
+        };
+    } while (gameEnded == false);
+}
+
+void turn(Player player)
+{
+
+    alert(strcat(player.nickname, " é a sua vez\n"));
+
+    for (int i = 0; i < 7; ++i) {
+        showPieces(player.hand[i]);
+    }
+
+    int choice = play(6);
+
+    if (choice == 0) {
+        printf("PERDEU A VEZ, OTARIO!\n");
+        return;
+    }
+
+
+}
