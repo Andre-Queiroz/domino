@@ -1,7 +1,10 @@
 //
 // Created by Caio Baracat on 24/09/20.
 //
+#include <stdlib.h>
+#include <time.h>
 #include "gameView.h"
+#include <stdbool.h>
 
 void fillPieces(Game *game) {
     int counter = 0;
@@ -22,6 +25,7 @@ void setPlayers(Game *game)
     askPlayerNickname(game->player1.nickname, 1);
     askPlayerNickname(game->player2.nickname, 2);
 }
+
 
 void gameStart(Game *game)
 {
@@ -57,3 +61,39 @@ void turn(Player player)
 
 
 }
+
+void drawPieces(int quantity, struct Game *game, struct Player player)
+{
+    do {
+
+        for (int i = 0; i < quantity; i++) {
+
+            int access = randomAccess(0, 27);
+
+            if (game -> bank ) {
+                player.hand[i] = game->bank.pieces[access];
+                game -> bank.total--;
+                game -> bank.history[i] = access;
+            }
+
+        }
+    } while (sweepingArray == false);
+}
+
+bool sweepingArray(int number, history[])
+{
+    for (int i = 0; i < 27; i++) {
+        if (history[i] == number){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+int randomAccess(int min, int max)
+{
+    srand(time(0));
+    return (rand() % (max - min + 1)) + min;
+}
+

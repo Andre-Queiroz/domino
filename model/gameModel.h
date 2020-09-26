@@ -2,6 +2,8 @@
 // Created by Caio Baracat on 24/09/20.
 //
 
+#include <stdbool.h>
+
 #ifndef DOMINO_GAMEMODEL_H
 #define DOMINO_GAMEMODEL_H
 
@@ -15,6 +17,7 @@ typedef struct Piece {
 typedef struct Player {
     char nickname[50];
     struct Piece hand[21];
+    int total;
 } Player;
 
 typedef struct Bank {
@@ -37,3 +40,9 @@ void setPlayers(Game *game);
 void gameStart(Game *game);
 
 void turn(Player player);
+
+int randomAccess(int min, int max);
+
+void drawPieces (int quantity, struct Game *game, struct Player player);
+
+bool sweepingArray(int number, history[]);
