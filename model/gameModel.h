@@ -13,11 +13,25 @@ typedef struct Piece {
 } Piece;
 
 typedef struct Player {
-    int playerTurn;
     char nickname[50];
-    struct Piece hand[7];
+    struct Piece hand[21];
 } Player;
 
-void fillPieces(struct Piece bank[]);
+typedef struct Bank {
+    struct Piece pieces[28];
+    int history[28];
+    int total;
+} Bank;
 
-void setPlayers(struct Player players[]);
+typedef struct Game {
+    Player player1;
+    Player player2;
+    Bank bank;
+    int turn;
+} Game;
+
+void fillPieces(Game *game);
+
+void setPlayers(Game *game);
+
+
