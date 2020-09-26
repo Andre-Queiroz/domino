@@ -34,4 +34,6 @@ void fillPieces(Game *game);
 
 void setPlayers(Game *game);
 
+void gameStart(Game *game);
 
+void turn(Player player);
