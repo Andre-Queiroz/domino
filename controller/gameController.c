@@ -12,4 +12,6 @@ void newGame() {
 
     fillPieces(&game);
     setPlayers(&game);
+
+    gameStart(&game);
 }
