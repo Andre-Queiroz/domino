@@ -34,20 +34,8 @@ void showActionMenu() {
     printf("[4] Jogar\n");
     printf("[5] Voltar ao menu principal\n\n");
 }
-
-void alert(char message[]) {
-    printf(message);
-}
-
 void askPlayerNickname(char nickname[], int playerTurn)
 {
     printf("Qual o nome do jogador %d?\n", playerTurn);
     scanf("%s", nickname);
-}
-
-void showPLayers(struct Player players[])
-{
-    for (int x = 0; x < 2; x++) {
-        printf("O jogador %d é %s\n", players[x].playerTurn, players[x].nickname);
-    }
 }

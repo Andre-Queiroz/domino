@@ -4,11 +4,12 @@
 
 #include "gameController.h"
 
-struct Piece bank[28];
-struct Player players[2];
+Game game;
 
 void newGame() {
-    fillPieces(bank);
-    setPlayers(players);
-    showPLayers(players);
+    Bank bank;
+    game.bank = bank;
+
+    fillPieces(&game);
+    setPlayers(&game);
 }
