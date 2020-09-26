@@ -34,8 +34,30 @@ void showActionMenu() {
     printf("[4] Jogar\n");
     printf("[5] Voltar ao menu principal\n\n");
 }
+
 void askPlayerNickname(char nickname[], int playerTurn)
 {
     printf("Qual o nome do jogador %d?\n", playerTurn);
     scanf("%s", nickname);
+}
+
+int play(int options)
+{
+    int choice = 0;
+    printf("Escolha de 1 até %d\nQual peça você deseja jogar?\n", options);
+    scanf("%d", &choice);
+
+    printf("escolheu %d\n", choice);
+
+    if (choice < 0 || choice > options) {
+        printf("O número que você escolheu não é válido.\n");
+        return 0;
+    }
+
+    return choice -= 1;
+}
+
+void alert(char message[])
+{
+    printf(message);
 }

@@ -9,6 +9,8 @@
 
 #include "gameModel.h"
 #include "stdio.h"
+#include "stdbool.h"
+#include "string.h"
 
 int showMainMenu();
 
@@ -21,3 +23,5 @@ void alert(char message[]);
 void askPlayerNickname(char nickname[], int playerTurn);
 
 void showPLayers(struct Player players[]);
+
+int play(int options);
