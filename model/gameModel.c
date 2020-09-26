@@ -22,6 +22,8 @@ void fillPieces(Game *game) {
 
 void setPlayers(Game *game)
 {
+    game -> player1.total = 0;
+    game -> player2.total = 0;
     askPlayerNickname(game->player1.nickname, 1);
     askPlayerNickname(game->player2.nickname, 2);
 }
@@ -62,33 +64,38 @@ void turn(Player player)
 
 }
 
-void drawPieces(int quantity, struct Game *game, struct Player player)
+void drawPieces(int quantity, Game *game, Player *player)
 {
-    do {
+    if (player -> total > 21){
+        return;
+    }
+    for (int i = 0; i < quantity; i++) {
 
-        for (int i = 0; i < quantity; i++) {
+        int access;
+        int historyPosition;
 
-            int access = randomAccess(0, 27);
+        do {
+            access = randomAccess(0, 27);
+            historyPosition = sweepingArray(access, game -> bank.history);
+        } while (historyPosition > 0);
 
-            if (game -> bank ) {
-                player.hand[i] = game->bank.pieces[access];
-                game -> bank.total--;
-                game -> bank.history[i] = access;
-            }
+            player -> hand[player -> total] = game -> bank.pieces[access];
+            player -> total += 1;
+            game -> bank.total--;
+            game -> bank.history[historyPosition + 1] = access;
+    }
 
-        }
-    } while (sweepingArray == false);
 }
 
-bool sweepingArray(int number, history[])
+
+int sweepingArray(int number, int history[])
 {
     for (int i = 0; i < 27; i++) {
         if (history[i] == number){
-            return true;
-        } else {
-            return false;
+            return i;
         }
     }
+    return 0;
 }
 
 int randomAccess(int min, int max)

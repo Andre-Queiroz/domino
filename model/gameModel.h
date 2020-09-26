@@ -43,6 +43,6 @@ void turn(Player player);
 
 int randomAccess(int min, int max);
 
-void drawPieces (int quantity, struct Game *game, struct Player player);
+void drawPieces(int quantity, Game *game, Player *player);
 
-bool sweepingArray(int number, history[]);
+int sweepingArray(int number, int history[]);
