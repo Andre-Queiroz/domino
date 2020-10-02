@@ -12,10 +12,10 @@ void fillPieces(Game *game) {
     for (int x = 0; x <= 6; x++) {
         for (int z = x; z <= 6; z++) {
             Piece p = {x, z};
-            game->bank.pieces[counter] = p;
+            game->bench.pieces[counter] = p;
             counter++;
 
-            game->bank.total = counter;
+            game->bench.total = counter;
         }
     }
 }
@@ -42,31 +42,39 @@ void gameStart(Game *game)
             turn(game->player2);
             game->turn = 1;
         };
+
+        printf("\e[1;1H\e[2J");
     } while (gameEnded == false);
 }
 
 void turn(Player player)
 {
-
     alert(strcat(player.nickname, " é a sua vez\n"));
 
     for (int i = 0; i < 7; ++i) {
-        showPieces(player.hand[i]);
+        showPieces(player.hand[i], i);
     }
 
-    int choice = play(6);
+    int choice = play(player.total);
 
     if (choice == 0) {
         printf("PERDEU A VEZ, OTARIO!\n");
         return;
     }
 
+    if (choice == -1) {
+        printf("O jogador %s desistiu. Saindo do jogo", player.nickname);
+        exit(0);
+    }
 
+    placePiece(player.hand[choice]);
+    removeFromHand(&player, choice);
 }
 
 void drawPieces(int quantity, Game *game, Player *player)
 {
     if (player -> total > 21){
+        printf("player tem mais de 21 peças\n");
         return;
     }
     for (int i = 0; i < quantity; i++) {
@@ -76,25 +84,28 @@ void drawPieces(int quantity, Game *game, Player *player)
 
         do {
             access = randomAccess(0, 27);
-            historyPosition = sweepingArray(access, game -> bank.history);
+            printf("acessando peça da posição %d", access);
+            historyPosition = sweepingArray(access, game->bench.history);
         } while (historyPosition > 0);
 
-            player -> hand[player -> total] = game -> bank.pieces[access];
+            player -> hand[player->total] = game->bench.pieces[access];
             player -> total += 1;
-            game -> bank.total--;
-            game -> bank.history[historyPosition + 1] = access;
+            game->bench.total--;
+            game->bench.history[historyPosition + 1] = access;
     }
 
 }
-
 
 int sweepingArray(int number, int history[])
 {
     for (int i = 0; i < 27; i++) {
         if (history[i] == number){
+            printf("número %d já inserido\n", i);
             return i;
         }
     }
+
+    printf("numero não usado\n");
     return 0;
 }
 
@@ -102,5 +113,22 @@ int randomAccess(int min, int max)
 {
     srand(time(0));
     return (rand() % (max - min + 1)) + min;
+}
+
+void removeFromHand(Player *player, int choice)
+{
+    for (int i = choice; i < player->total - 1; i++) {
+        player->hand[i] = player->hand[i + 1];
+    }
+
+    player->total -= 1;
+}
+
+void placePiece()
+{
+    // verificar se a peça pode ser jogada
+    // caso puder, inserir na ponta que que couber
+    // Adicionar no array de peças jogadas
+    // printar na tela
 }
 

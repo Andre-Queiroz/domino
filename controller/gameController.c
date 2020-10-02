@@ -7,8 +7,8 @@
 Game game;
 
 void newGame() {
-    Bank bank;
-    game.bank = bank;
+    Bench bench;
+    game.bench = bench;
 
     Player *p1 = &(game.player1);
     Player *p2 = &(game.player2);
