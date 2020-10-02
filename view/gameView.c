@@ -4,8 +4,8 @@
 
 #include "gameView.h"
 
-void showPieces(struct Piece p) {
-    printf("[ %d | %d ]\n", p.SideA, p.SideB);
+void showPieces(struct Piece p, int position) {
+    printf("Peça %d - [ %d | %d ]\n", p.SideA, p.SideB, position+1);
 }
 
 int showMainMenu() {
@@ -45,7 +45,13 @@ int play(int options)
 {
     int choice = 0;
     printf("Escolha de 1 até %d\nQual peça você deseja jogar?\n", options);
+    printf("Escolha -1 para encerrar o jogo\n");
+
     scanf("%d", &choice);
+
+    if (choice == -1) {
+        return -1;
+    }
 
     printf("escolheu %d\n", choice);
 

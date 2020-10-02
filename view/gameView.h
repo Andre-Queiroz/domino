@@ -7,14 +7,15 @@
 
 #endif //DOMINO_GAMEVIEW_H
 
-#include "gameModel.h"
+#include "stdlib.h"
 #include "stdio.h"
 #include "stdbool.h"
 #include "string.h"
+#include "gameModel.h"
 
 int showMainMenu();
 
-void showPieces(struct Piece p);
+void showPieces(struct Piece p, int position);
 
 void showActionMenu();
 

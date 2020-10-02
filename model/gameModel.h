@@ -20,16 +20,17 @@ typedef struct Player {
     int total;
 } Player;
 
-typedef struct Bank {
-    struct Piece pieces[28];
+typedef struct Bench {
+    Piece pieces[28];
     int history[28];
     int total;
-} Bank;
+} Bench;
 
 typedef struct Game {
+    Piece pieces[28];
+    Bench bench;
     Player player1;
     Player player2;
-    Bank bank;
     int turn;
 } Game;
 
@@ -41,8 +42,12 @@ void gameStart(Game *game);
 
 void turn(Player player);
 
-int randomAccess(int min, int max);
-
 void drawPieces(int quantity, Game *game, Player *player);
 
 int sweepingArray(int number, int history[]);
+
+int randomAccess(int min, int max);
+
+void removeFromHand(Player *player, int choice);
+
+void placePiece();
