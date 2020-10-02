@@ -25,3 +25,5 @@ void askPlayerNickname(char nickname[], int playerTurn);
 void showPLayers(struct Player players[]);
 
 int play(int options);
+
+void showRules();
