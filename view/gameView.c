@@ -9,5 +9,4 @@ Player newPlayer()
     Player player;
     printf("Insira o nome do jogador: ");
     scanf("%s", player.nickname);
-
 }

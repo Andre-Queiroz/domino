@@ -18,11 +18,3 @@ void fill(Game *game)
         }
     }
 }
-
-void setPlayers(Game *game)
-{
-    for (int i = 0; i < 2; i++) {
-        Player player = newPlayer();
-        game->players[i] = player;
-    }
-}

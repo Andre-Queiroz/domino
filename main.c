@@ -25,8 +25,7 @@ int main() {
                 //call the function
                 break;
             case 5:
-                printf("Regras do jogo:\n");
-                //call the function
+                showRules();
                 break;
             case 6:
                 printf("Voce saiu do jogo.\n");
