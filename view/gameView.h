@@ -13,4 +13,21 @@
 #include "string.h"
 #include "gameModel.h"
 
+
 Player newPlayer();
+
+int showMainMenu();
+
+void showPieces(struct Piece p, int position);
+
+void showActionMenu();
+
+void alert(char message[]);
+
+void askPlayerNickname(char nickname[], int playerTurn);
+
+void showPLayers(struct Player players[]);
+
+int play(int options);
+
+void showRules();
