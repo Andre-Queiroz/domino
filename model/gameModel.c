@@ -131,4 +131,3 @@ void placePiece()
     // Adicionar no array de peças jogadas
     // printar na tela
 }
-
