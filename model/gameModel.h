@@ -17,20 +17,31 @@ typedef struct Piece {
 typedef struct Player {
     char nickname[50];
     Piece hand[21];
+    int total;
 } Player;
+
+typedef struct History {
+    int total;
+    int used[28];
+} History;
 
 typedef struct Board {
     int total;
     Piece pieces[28];
-    int usedPieces[28];
+    History history;
 } Board;
 
 typedef struct Game {
     Board board;
     Player players[2];
-    int turn;
 } Game;
 
 void fill(Game *game);
 
 void setPlayers(Game *game);
+
+void draw(Game *game, int player, int total);
+
+int randint(int n);
+
+bool isPieceUsed(Game *game, int position);
