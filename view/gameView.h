@@ -14,3 +14,7 @@
 #include "gameModel.h"
 
 Player newPlayer();
+
+void start(Game *game);
+
+void display(Piece p);
