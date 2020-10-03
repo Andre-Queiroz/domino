@@ -13,6 +13,9 @@
 #include "string.h"
 #include "gameModel.h"
 
+
+Player newPlayer();
+
 int showMainMenu();
 
 void showPieces(struct Piece p, int position);

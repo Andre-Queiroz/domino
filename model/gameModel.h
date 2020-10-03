@@ -16,38 +16,21 @@ typedef struct Piece {
 
 typedef struct Player {
     char nickname[50];
-    struct Piece hand[21];
-    int total;
+    Piece hand[21];
 } Player;
 
-typedef struct Bench {
-    Piece pieces[28];
-    int history[28];
+typedef struct Board {
     int total;
-} Bench;
+    Piece pieces[28];
+    int usedPieces[28];
+} Board;
 
 typedef struct Game {
-    Piece pieces[28];
-    Bench bench;
-    Player player1;
-    Player player2;
+    Board board;
+    Player players[2];
     int turn;
 } Game;
 
-void fillPieces(Game *game);
+void fill(Game *game);
 
 void setPlayers(Game *game);
-
-void gameStart(Game *game);
-
-void turn(Player player);
-
-void drawPieces(int quantity, Game *game, Player *player);
-
-int sweepingArray(int number, int history[]);
-
-int randomAccess(int min, int max);
-
-void removeFromHand(Player *player, int choice);
-
-void placePiece();
