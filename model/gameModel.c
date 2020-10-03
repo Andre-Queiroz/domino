@@ -57,3 +57,51 @@ bool isPieceUsed(Game *game, int position)
 
     return false;
 }
+
+int firstPlayer(Game *game) {
+    int piece1 = -1;
+    int piece2 = -1;
+    int sideA;
+    int sideB;
+
+    for (int x = 0; x < game->players[1].total; x++) {
+        sideA = game->players[1].hand[x].SideA;
+        sideB = game->players[1].hand[x].SideB;
+
+        if ((sideA == sideB) && piece1 < sideA) {
+            piece1 = sideA;
+        }
+    }
+
+    for (int x = 0; x < game->players[2].total; x++) {
+        sideA = game->players[2].hand[x].SideA; // 3
+        sideB = game->players[2].hand[x].SideB; // 3
+
+        if ((sideA == sideB) && piece2 < sideA) {
+            piece2 = sideA;
+        }
+    }
+
+    if (piece1 >= piece2) {
+        return 1;
+    }
+    return 2;
+}
+
+void startGame(Game *game)
+{
+    bool endGame = false;
+    int turn = firstPlayer(game);
+
+    do {
+        if (turn == 1) {
+            //player1 joga e muda o turn para player2
+            turn = 2;
+        } else {
+            //player2 joga e muda o turn para player1
+            turn = 1;
+        }
+        endGame = play(game);
+
+    } while (endGame != true);
+}
