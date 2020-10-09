@@ -43,3 +43,5 @@ void setPlayers(Game *game);
 void draw(Game *game, int player, int total);
 
 bool isPieceUsed(Game *game, int position);
+
+void play(Game *game);
