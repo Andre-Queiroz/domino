@@ -2,7 +2,7 @@
 #include "gameController.h"
 
 int main() {
-    int option;
+    //int option;
 
     newGame();
 

@@ -36,7 +36,6 @@ void draw(Game *game, int player, int total)
         } while (isPieceUsed(game, access) == true);
 
         Piece p = game->board.pieces[access];
-        display(p);
 
         int playerTotalInHand = game->players[player].total;
         game->players[player].hand[playerTotalInHand] = p;
