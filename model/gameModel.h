@@ -42,8 +42,6 @@ void setPlayers(Game *game);
 
 void draw(Game *game, int player, int total);
 
-int randint(int n);
-
 bool isPieceUsed(Game *game, int position);
 
 void play(Game *game);

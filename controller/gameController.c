@@ -1,6 +1,3 @@
-//
-// Created by Caio Baracat on 23/09/20.
-//
 
 #include "gameController.h"
 
@@ -22,6 +19,5 @@ void newGame() {
     draw(&game, 1, 7);
     draw(&game, 2, 7);
 
-    printf("oi?\n");
     //startGame(&game);
 }
