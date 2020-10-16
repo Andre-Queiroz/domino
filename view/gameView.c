@@ -21,9 +21,9 @@ void display(Piece p)
     printf("[%d | %d]\n", p.SideA, p.SideB);
 }
 
-void printPieces(Piece pieces[], int total)
+void printHand(Player player)
 {
-    for (int i = 0; i < total; i++) {
-        display(pieces[i]);
+    for (int i = 0; i < player.total; i++) {
+        display(player.hand[i]);
     }
 }

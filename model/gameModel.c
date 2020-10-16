@@ -132,7 +132,14 @@ void startGame(Game *game)
 {
     bool endGame = false;
     int turn = firstPlayer(game);
-    
+    printf("turn %d", turn);
+
+    printf("Player 1\n");
+    printHand(game->players[0]);
+    printf("Player 2\n");
+    printHand(game->players[1]);
+    exit(765);
+
     do {
         if (turn == 1) {
             //player1 joga e muda o turn para player2
@@ -141,7 +148,7 @@ void startGame(Game *game)
             //player2 joga e muda o turn para player1
             turn = 1;
         }
-        //endGame = play(game);
+        endGame = play(game);
 
     } while (endGame != true);
 }
@@ -169,4 +176,9 @@ void moveArray(Game *game, int player, int from)
     for (int i = from; i < total - 1; i++) {
         game->players[player].hand[i] = game->players[player].hand[i + 1];
     }
+}
+
+bool play(Game *game)
+{
+    return true;
 }

@@ -21,4 +21,4 @@ void start(Game *game);
 
 void display(Piece p);
 
-void printPieces(Piece pieces[], int total);
+void printHand(Player player);

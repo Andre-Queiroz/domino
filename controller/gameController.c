@@ -20,5 +20,10 @@ void newGame() {
     draw(&game, 0, 7);
     draw(&game, 1, 7);
 
+    printf("Player 1\n");
+    printHand(game.players[0]);
+    printf("Player 2\n");
+    printHand(game.players[1]);
+
     startGame(&game);
 }
