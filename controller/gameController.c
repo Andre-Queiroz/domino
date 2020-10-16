@@ -10,8 +10,13 @@ void newGame() {
     History history;
     history.total = 0;
 
-    board.history = history;
+    Heap heap;
+    heap.total = 0;
+
+    game.history = history;
     game.board = board;
+    game.heap = heap;
+
 
     fill(&game);
 
@@ -20,10 +25,6 @@ void newGame() {
     draw(&game, 0, 7);
     draw(&game, 1, 7);
 
-    printf("Player 1\n");
-    printHand(game.players[0]);
-    printf("Player 2\n");
-    printHand(game.players[1]);
 
     startGame(&game);
 }
