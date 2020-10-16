@@ -7,6 +7,8 @@
 
 #endif //DOMINO_GAMEVIEW_H
 
+#include <stdlib.h>
+#include <stdbool.h>
 #include "stdlib.h"
 #include "stdio.h"
 #include "stdbool.h"
@@ -18,3 +20,5 @@ Player newPlayer();
 void start(Game *game);
 
 void display(Piece p);
+
+void printPieces(Piece pieces[], int total);

@@ -2,14 +2,13 @@
 // Created by Caio Baracat on 24/09/20.
 //
 #include "gameView.h"
-#include <stdlib.h>
-#include <stdbool.h>
+
 
 void fill(Game *game)
 {
     int counter = 0;
     for (int i = 0; i <= 6; i++) {
-        for (int j = 0; j <= 6; j++) {
+        for (int j = i; j <= 6; j++) {
             Piece piece = {i, j};
             game->board.pieces[counter] = piece;
             counter++;
@@ -30,6 +29,7 @@ void draw(Game *game, int player, int total)
 {
     int access;
 
+    //printf("Antes do loop: [%d e %d]\n", game->players[0].total, game->players[1].total);
     for (int i = 0; i < total; i++) {
         do {
             access = rand() % 27;
@@ -41,6 +41,7 @@ void draw(Game *game, int player, int total)
         game->players[player].hand[playerTotalInHand] = p;
         game->players[player].total += 1;
 
+        //printf("Dentro do loop: [%d e %d]\n", game->players[player].total, game->players[player].total);
         game->board.history.used[game->board.history.total] = access;
         game->board.history.total += 1;
     }
@@ -57,41 +58,81 @@ bool isPieceUsed(Game *game, int position)
     return false;
 }
 
-int firstPlayer(Game *game) {
-    int piece1 = -1;
-    int piece2 = -1;
-    int sideA;
-    int sideB;
+int firstPlayer(Game *game)
+{
+    int playerSideA, playerSideB, boardSideA, boardSideB, piecePosition;
+    int piecePlayerOne = -1;
+    int piecePlayerTwo = -1;
 
-    for (int x = 0; x < game->players[1].total; x++) {
-        sideA = game->players[1].hand[x].SideA;
-        sideB = game->players[1].hand[x].SideB;
+    printf("Iniciando comparação por peças iguais\n");
 
-        if ((sideA == sideB) && piece1 < sideA) {
-            piece1 = sideA;
+    for (int p = 0; p <= 1; p++) {
+        printf("Jogador %d\n", p+1);
+
+        for (int i = 0; i < game->players[p].total; i++) {
+            playerSideA = game->players[p].hand[i].SideA;
+            playerSideB = game->players[p].hand[i].SideB;
+
+            printf("Peça [%d|%d]\n", playerSideA, playerSideB);
+            for (int j = 6; j >= 0; j--) {
+                if ((playerSideA == j) && (playerSideB == j)) {
+                    piecePosition = i;
+
+                    if (p == 1) {
+                        piecePlayerTwo = j;
+                    } else {
+                        piecePlayerOne = j;
+                    }
+                }
+            }
         }
     }
 
-    for (int x = 0; x < game->players[2].total; x++) {
-        sideA = game->players[2].hand[x].SideA; // 3
-        sideB = game->players[2].hand[x].SideB; // 3
-
-        if ((sideA == sideB) && piece2 < sideA) {
-            piece2 = sideA;
-        }
-    }
-
-    if (piece1 >= piece2) {
+    if (piecePlayerOne > piecePlayerTwo) {
+        turn(game, 0, piecePosition);
+        return 2;
+    } else if (piecePlayerTwo > piecePlayerOne) {
+        turn(game, 1, piecePosition);
         return 1;
     }
-    return 2;
+
+
+    for (int x = game->board.total - 1; x >= 0; x--) {
+        boardSideA = game->board.pieces[x].SideA;
+        boardSideB = game->board.pieces[x].SideB;
+
+        printf("Comparando a peça: [%d|%d]\n", boardSideA, boardSideB);
+
+        for (int p = 0; p < 1; p++) {
+            printf("Mão do jogador %d\n", p+1);
+            for (int h = 0; h < game->players[p].total; h++) {
+                playerSideA = game->players[p].hand[h].SideA;
+                playerSideB = game->players[p].hand[h].SideB;
+
+                if (playerSideA == playerSideB) {
+                    continue;
+                }
+
+                printf("peça [%d|%d]\n", playerSideA, playerSideB);
+                if (playerSideA == boardSideA && playerSideB == boardSideB) {
+                    turn(game, p, h);
+
+                    if (p == 1) {
+                        return 2;
+                    }
+
+                    return 1;
+                }
+            }
+        }
+    }
 }
 
 void startGame(Game *game)
 {
     bool endGame = false;
     int turn = firstPlayer(game);
-
+    
     do {
         if (turn == 1) {
             //player1 joga e muda o turn para player2
@@ -100,7 +141,32 @@ void startGame(Game *game)
             //player2 joga e muda o turn para player1
             turn = 1;
         }
-        endGame = play(game);
+        //endGame = play(game);
 
     } while (endGame != true);
+}
+
+void turn(Game *game, int player, int handPosition)
+{
+    for (int x = 0; x < game->players[player].total; x++) {
+        if (x == handPosition) {
+            Piece piece = game->players[player].hand[handPosition];
+            moveArray(game, player, handPosition);
+            game->players[player].total--;
+
+            int total = game->board.total;
+            game->board.pieces[total] = piece;
+            game->board.total ++;
+
+        }
+    }
+}
+
+void moveArray(Game *game, int player, int from)
+{
+    int total = game->players[player].total;
+
+    for (int i = from; i < total - 1; i++) {
+        game->players[player].hand[i] = game->players[player].hand[i + 1];
+    }
 }

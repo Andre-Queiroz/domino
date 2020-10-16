@@ -20,3 +20,10 @@ void display(Piece p)
 {
     printf("[%d | %d]\n", p.SideA, p.SideB);
 }
+
+void printPieces(Piece pieces[], int total)
+{
+    for (int i = 0; i < total; i++) {
+        display(pieces[i]);
+    }
+}

@@ -14,10 +14,11 @@ void newGame() {
     game.board = board;
 
     fill(&game);
+
     setPlayers(&game);
 
+    draw(&game, 0, 7);
     draw(&game, 1, 7);
-    draw(&game, 2, 7);
 
-    //startGame(&game);
+    startGame(&game);
 }
