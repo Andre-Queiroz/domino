@@ -15,10 +15,18 @@
 #include "string.h"
 #include "gameModel.h"
 
+void alert(char message[]);
+
 Player newPlayer();
 
 void start(Game *game);
 
 void display(Piece p);
 
-void printHand(Player player);
+void displayTable(Game *game);
+
+int showGameMenu();
+
+void displayPlayersHand(Game *game, int turn, bool showPlayerTurnMessage);
+
+int chooseAPiece();
