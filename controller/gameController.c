@@ -10,14 +10,21 @@ void newGame() {
     History history;
     history.total = 0;
 
-    board.history = history;
+    Heap heap;
+    heap.total = 0;
+
+    game.history = history;
     game.board = board;
+    game.heap = heap;
+
 
     fill(&game);
+
     setPlayers(&game);
 
+    draw(&game, 0, 7);
     draw(&game, 1, 7);
-    draw(&game, 2, 7);
 
-    //startGame(&game);
+
+    startGame(&game);
 }
