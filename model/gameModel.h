@@ -20,6 +20,11 @@ typedef struct Player {
     int total;
 } Player;
 
+typedef struct Heap {
+    Piece pieces[28];
+    int total;
+} Heap;
+
 typedef struct History {
     int total;
     int used[28];
@@ -28,11 +33,12 @@ typedef struct History {
 typedef struct Board {
     int total;
     Piece pieces[28];
-    History history;
 } Board;
 
 typedef struct Game {
     Board board;
+    Heap heap;
+    History history;
     Player players[2];
 } Game;
 
@@ -44,10 +50,18 @@ void draw(Game *game, int player, int total);
 
 bool isPieceUsed(Game *game, int position);
 
-bool play(Game *game);
+bool play(Game *game, int turn);
 
 void startGame(Game *game);
 
 void turn(Game *game, int player, int handPosition);
 
-void moveArray(Game *game, int player, int from);
+void movePlayerHand(Game *game, int player, int from);
+
+void moveBoardPieces(Game *game, int from);
+
+bool isGameEnded(Game *game, int turn);
+
+bool isChosenPieceValid(Piece chosenPiece, Piece firstPiece, Piece lastPiece);
+
+void switchSides(Piece *chosenPiece, Piece firstPiece, Piece lastPiece);
