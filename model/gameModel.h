@@ -44,4 +44,10 @@ void draw(Game *game, int player, int total);
 
 bool isPieceUsed(Game *game, int position);
 
-void play(Game *game);
+bool play(Game *game);
+
+void startGame(Game *game);
+
+void turn(Game *game, int player, int handPosition);
+
+void moveArray(Game *game, int player, int from);
