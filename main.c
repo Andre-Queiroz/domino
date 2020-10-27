@@ -1,10 +1,28 @@
 #include <stdio.h>
 #include "gameController.h"
 
+size_t writeFile(FILE *file, Game *game);
+size_t readFile(FILE *file, Game *game);
+
 int main() {
     //int option;
 
-    newGame();
+    FILE *file;
+
+    file = fopen("arquivo.bin", "wb");
+
+    if (file == NULL) {
+        printf("Nao criou o arquivo\n");
+        return 0;
+    }
+
+    Game game;
+
+    writeFile(&file, &game);
+    readFile(&file, &game);
+    fclose(file);
+
+    //newGame();
 
 //    do {
 //        option = showMainMenu();
@@ -37,3 +55,12 @@ int main() {
     return 0;
 }
 
+size_t writeFile(FILE *file, Game *game)
+{
+    int content = fwrite(&game, sizeof(game), 1, file);
+}
+
+size_t readFile(FILE *file, Game *game)
+{
+    int content = fread(&game, sizeof(game), 1, file);
+}
