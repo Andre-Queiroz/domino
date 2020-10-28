@@ -28,3 +28,9 @@ void newGame() {
 
     startGame(&game);
 }
+
+void continueGame()
+{
+    game = loadLastGame();
+    startGame(&game);
+}

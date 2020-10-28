@@ -244,6 +244,11 @@ bool play(Game *game, int playerTurn)
                     turnHasFinished = false;
                 }
                 break;
+            case 4:
+                saveGame(game);
+                printf("Jogo salvo! Encerrando.");
+                exit(0);
+                break;
             case 0:
                 alert("Você desistiu do jogo.\n");
                 if (playerTurn == 0) {
@@ -301,4 +306,28 @@ void switchSides(Piece *chosenPiece, Piece firstPiece, Piece lastPiece)
         chosenPiece->SideA = chosenPiece->SideB;
         chosenPiece->SideB = swap;
     }
+}
+
+Game loadLastGame()
+{
+    Game game;
+    FILE * file;
+
+    file = fopen("../saves/save.bin", "rb");
+
+    if (file == NULL) {
+        return game;
+    }
+
+    fread(&game, sizeof(game), 1, file);
+
+    return  game;
+}
+
+void saveGame(Game * game)
+{
+    FILE * file;
+    file = fopen("../saves/save.bin", "wb");
+
+    fwrite(game, sizeof(*game), 1, file);
 }

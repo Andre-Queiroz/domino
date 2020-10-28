@@ -65,3 +65,7 @@ bool isGameEnded(Game *game, int turn);
 bool isChosenPieceValid(Piece chosenPiece, Piece firstPiece, Piece lastPiece);
 
 void switchSides(Piece *chosenPiece, Piece firstPiece, Piece lastPiece);
+
+Game loadLastGame();
+
+void saveGame(Game * game);

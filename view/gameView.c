@@ -50,10 +50,11 @@ int showGameMenu()
         printf("1 - Jogar uma peça\n");
         printf("2 - Comprar uma peça\n");
         printf("3 - Passar a vez\n");
+        printf("4 - Salvar e sair\n");
         printf("0 - Sair do jogo\n");
 
         scanf("%d", &option);
-    } while (option < 0 || option > 3);
+    } while (option < 0 || option > 4);
 
     return option;
 }
@@ -93,12 +94,10 @@ int showMainMenu()
     printf("\nJOGO DE DOMINO (PUC-SP)\n\n");
     printf("[1] Iniciar novo jogo\n");
     printf("[2] Continuar a jogar\n");
-    printf("[3] Salvar jogo\n");
-    printf("[4] Carregar jogo\n");
-    printf("[5] Regras do jogo\n");
-    printf("[6] Sair do jogo\n\n");
+    printf("[3] Regras do jogo\n");
+    printf("[4] Sair do jogo\n\n");
 
-    option = scanf("%d", &option);
+    scanf("%d", &option);
 
     return option;
 }
