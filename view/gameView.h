@@ -7,24 +7,31 @@
 
 #endif //DOMINO_GAMEVIEW_H
 
+#include<time.h>
+#include <stdlib.h>
+#include <stdbool.h>
 #include "stdlib.h"
 #include "stdio.h"
 #include "stdbool.h"
 #include "string.h"
 #include "gameModel.h"
 
-int showMainMenu();
-
-void showPieces(struct Piece p, int position);
-
-void showActionMenu();
-
 void alert(char message[]);
 
-void askPlayerNickname(char nickname[], int playerTurn);
+Player newPlayer();
 
-void showPLayers(struct Player players[]);
+void start(Game *game);
 
-int play(int options);
+void display(Piece p);
+
+void displayTable(Game *game);
+
+int showGameMenu();
+
+void displayPlayersHand(Game *game, int turn, bool showPlayerTurnMessage);
+
+int chooseAPiece();
+
+int showMainMenu();
 
 void showRules();

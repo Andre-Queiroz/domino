@@ -16,38 +16,56 @@ typedef struct Piece {
 
 typedef struct Player {
     char nickname[50];
-    struct Piece hand[21];
+    Piece hand[21];
     int total;
 } Player;
 
-typedef struct Bench {
+typedef struct Heap {
     Piece pieces[28];
-    int history[28];
     int total;
-} Bench;
+} Heap;
+
+typedef struct History {
+    int total;
+    int used[28];
+} History;
+
+typedef struct Board {
+    int total;
+    Piece pieces[28];
+} Board;
 
 typedef struct Game {
-    Piece pieces[28];
-    Bench bench;
-    Player player1;
-    Player player2;
-    int turn;
+    Board board;
+    Heap heap;
+    History history;
+    Player players[2];
 } Game;
 
-void fillPieces(Game *game);
+void fill(Game *game);
 
 void setPlayers(Game *game);
 
-void gameStart(Game *game);
+void draw(Game *game, int player, int total);
 
-void turn(Player player);
+bool isPieceUsed(Game *game, int position);
 
-void drawPieces(int quantity, Game *game, Player *player);
+bool play(Game *game, int turn);
 
-int sweepingArray(int number, int history[]);
+void startGame(Game *game);
 
-int randomAccess(int min, int max);
+void turn(Game *game, int player, int handPosition);
 
-void removeFromHand(Player *player, int choice);
+void movePlayerHand(Game *game, int player, int from);
 
-void placePiece();
+void moveBoardPieces(Game *game, int from);
+
+bool isGameEnded(Game *game, int turn);
+
+bool isChosenPieceValid(Piece chosenPiece, Piece firstPiece, Piece lastPiece);
+
+void switchSides(Piece *chosenPiece, Piece firstPiece, Piece lastPiece);
+
+Game loadLastGame();
+
+void saveGame(Game * game);

@@ -13,25 +13,18 @@ int main() {
                 newGame();
                 break;
             case 2:
-                printf("Continuando\n");
-                //call the function
+                printf("Continuando o ultimo jogo salvo\n");
+                continueGame();
                 break;
             case 3:
-                printf("Salvando jogo...\n");
-                //call the function
-                break;
-            case 4:
-                printf("Carregando jogo...\n");
-                //call the function
-                break;
-            case 5:
                 showRules();
                 break;
-            case 6:
+            case 4:
                 printf("Voce saiu do jogo.\n");
                 break;
         }
-    } while (option != 6);
+    } while (option != 4);
+
     return 0;
 }
 

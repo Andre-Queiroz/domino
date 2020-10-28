@@ -4,68 +4,102 @@
 
 #include "gameView.h"
 
-void showPieces(struct Piece p, int position) {
-    printf("Peça %d - [ %d | %d ]\n", p.SideA, p.SideB, position+1);
+void alert(char message[])
+{
+    printf("%s", message);
 }
 
-int showMainMenu() {
+Player newPlayer()
+{
+    Player player;
+    player.total = 0;
+    //printf("Insira o nome do jogador: ");
+    //scanf("%s", player.nickname);
+    player.nickname[0] = 'Z';
+    player.nickname[1] = 'e';
+
+    return player;
+}
+
+void display(Piece p)
+{
+    printf("[%d | %d]", p.SideA, p.SideB);
+}
+
+void displayTable(Game *game)
+{
+    printf("\n\n");
+    printf("=============\n");
+    printf("MESA\n");
+    printf("=============\n");
+    for (int i = 0; i < game->board.total; i++) {
+        display(game->board.pieces[i]);
+        printf(" ");
+    }
+
+    printf("\n\n");
+}
+
+int showGameMenu()
+{
+    int option;
+
+    do {
+        printf("Menu de ação\n");
+        printf("Escolha uma das opções desejadas indicando o número correspondente: \n");
+        printf("1 - Jogar uma peça\n");
+        printf("2 - Comprar uma peça\n");
+        printf("3 - Passar a vez\n");
+        printf("4 - Salvar e sair\n");
+        printf("0 - Sair do jogo\n");
+
+        scanf("%d", &option);
+    } while (option < 0 || option > 4);
+
+    return option;
+}
+
+void displayPlayersHand(Game *game, int turn, bool showPlayerTurnMessage)
+{
+
+    if (showPlayerTurnMessage == true) {
+        printf("Vez do jogador %d\n", turn + 1);
+    }
+    for (int i = 0; i < game->players[turn].total; i++) {
+        printf("%d) ", i + 1);
+        display(game->players[turn].hand[i]);
+        printf("   ");
+    }
+
+    printf("\n\n");
+}
+
+int chooseAPiece(Game *game, int playerTurn)
+{
+    int choice = -1;
+    displayPlayersHand(game, playerTurn, false);
+
+    do {
+        printf("Escolha uma das peças da sua mão pelo número correspondente: \n");
+        scanf("%d", &choice);
+    } while (choice < 1 || choice > game->players[playerTurn].total);
+
+    return choice - 1;
+}
+
+int showMainMenu()
+{
     int option;
 
     printf("\nJOGO DE DOMINO (PUC-SP)\n\n");
     printf("[1] Iniciar novo jogo\n");
     printf("[2] Continuar a jogar\n");
-    printf("[3] Salvar jogo\n");
-    printf("[4] Carregar jogo\n");
-    printf("[5] Regras do jogo\n");
-    printf("[6] Sair do jogo\n\n");
+    printf("[3] Regras do jogo\n");
+    printf("[4] Sair do jogo\n\n");
 
     scanf("%d", &option);
 
     return option;
-}
-
-void showActionMenu() {
-
-    printf("\nJOGO DE DOMINO (PUC-SP)\n\n");
-    printf("Jogador #1,2,3,4...\n\n");
-    printf("[1] Mesa do domino\n");
-    printf("[2] Ver suas pecas\n");
-    printf("[3] Comprar peca\n");
-    printf("[4] Jogar\n");
-    printf("[5] Voltar ao menu principal\n\n");
-}
-
-void askPlayerNickname(char nickname[], int playerTurn)
-{
-    printf("Qual o nome do jogador %d?\n", playerTurn);
-    scanf("%s", nickname);
-}
-
-int play(int options)
-{
-    int choice = 0;
-    printf("Escolha de 1 até %d\nQual peça você deseja jogar?\n", options);
-    printf("Escolha -1 para encerrar o jogo\n");
-
-    scanf("%d", &choice);
-
-    if (choice == -1) {
-        return -1;
-    }
-
-    printf("escolheu %d\n", choice);
-
-    if (choice < 0 || choice > options) {
-        printf("O número que você escolheu não é válido.\n");
-        return 0;
-    }
-
-    return choice -= 1;
-}
-
-void alert(char message[])
-{
-    printf(message);
 }
 
 void showRules()

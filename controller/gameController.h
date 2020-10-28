@@ -10,3 +10,5 @@
 #include "gameView.h"
 
 void newGame();
+
+void continueGame();

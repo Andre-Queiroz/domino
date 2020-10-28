@@ -1,21 +1,36 @@
-//
-// Created by Caio Baracat on 23/09/20.
-//
 
 #include "gameController.h"
 
 Game game;
 
 void newGame() {
-    Bench bench;
-    game.bench = bench;
+    Board board;
+    board.total = 0;
 
-    Player *p1 = &(game.player1);
-    Player *p2 = &(game.player2);
+    History history;
+    history.total = 0;
 
-    fillPieces(&game);
+    Heap heap;
+    heap.total = 0;
+
+    game.history = history;
+    game.board = board;
+    game.heap = heap;
+
+
+    fill(&game);
+
     setPlayers(&game);
-    drawPieces(7, &game, p1);
-    drawPieces(7, &game, p2);
-    gameStart(&game);
+
+    draw(&game, 0, 7);
+    draw(&game, 1, 7);
+
+
+    startGame(&game);
+}
+
+void continueGame()
+{
+    game = loadLastGame();
+    startGame(&game);
 }
