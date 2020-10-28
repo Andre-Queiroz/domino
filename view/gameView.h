@@ -30,3 +30,7 @@ int showGameMenu();
 void displayPlayersHand(Game *game, int turn, bool showPlayerTurnMessage);
 
 int chooseAPiece();
+
+int showMainMenu();
+
+void showRules();
