@@ -7,6 +7,7 @@
 
 #endif //DOMINO_GAMEVIEW_H
 
+#include<time.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include "stdlib.h"

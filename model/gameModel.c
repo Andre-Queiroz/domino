@@ -29,10 +29,13 @@ void draw(Game *game, int player, int total)
 {
     int access;
 
-    //printf("Antes do loop: [%d e %d]\n", game->players[0].total, game->players[1].total);
+
     for (int i = 0; i < total; i++) {
+        srand(time(NULL));
         do {
             access = rand() % 27;
+
+            printf("%d\n", time(NULL));
         } while (isPieceUsed(game, access) == true);
 
         Piece p = game->heap.pieces[access];
