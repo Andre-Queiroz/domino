@@ -34,8 +34,6 @@ void draw(Game *game, int player, int total)
         srand(time(NULL));
         do {
             access = rand() % 27;
-
-            printf("%d\n", time(NULL));
         } while (isPieceUsed(game, access) == true);
 
         Piece p = game->heap.pieces[access];
@@ -62,64 +60,50 @@ bool isPieceUsed(Game *game, int position)
 
 int firstPlayer(Game *game)
 {
-    int playerSideA, playerSideB, boardSideA, boardSideB, piecePosition;
-    int piecePlayerOne = -1;
-    int piecePlayerTwo = -1;
+    int playersHand[2], playersScore[2], higher, sum;
+    bool found[2];
 
-    for (int p = 0; p <= 1; p++) {
-        for (int i = 0; i < game->players[p].total; i++) {
-            playerSideA = game->players[p].hand[i].SideA;
-            playerSideB = game->players[p].hand[i].SideB;
+    for (int p = 0; p < 2; p++) {
+        sum = 0;
+        higher = 0;
 
-            for (int j = 6; j >= 0; j--) {
-                if ((playerSideA == j) && (playerSideB == j)) {
-                    piecePosition = i;
+        for (int i = 0; i < game->players[p].total; i ++) {
+            if (game->players[p].hand[i].SideA == game->players[p].hand[i].SideB) {
+                sum = game->players[p].hand[i].SideA + game->players[p].hand[i].SideB;
 
-                    if (p == 1) {
-                        piecePlayerTwo = j;
-                    } else {
-                        piecePlayerOne = j;
-                    }
+                if (sum > higher) {
+                    higher = sum;
+                    playersHand[p] = i;
+                    playersScore[p] = higher;
+                    found[p] = true;
                 }
             }
         }
     }
 
-    if (piecePlayerOne > piecePlayerTwo) {
-        turn(game, 0, piecePosition);
-        return 2;
-    } else if (piecePlayerTwo > piecePlayerOne) {
-        turn(game, 1, piecePosition);
-        return 1;
-    }
+    if (found[0] == false && found[1] == false) {
+        for (int p = 0; p < 2; p++) {
+            sum = 0;
+            higher = 0;
 
+            for (int i = 0; i < game->players[p].total; i ++) {
+                sum = game->players[p].hand[i].SideA + game->players[p].hand[i].SideB;
 
-    for (int x = game->board.total - 1; x >= 0; x--) {
-        boardSideA = game->board.pieces[x].SideA;
-        boardSideB = game->board.pieces[x].SideB;
-
-        for (int p = 0; p < 1; p++) {
-            for (int h = 0; h < game->players[p].total; h++) {
-                playerSideA = game->players[p].hand[h].SideA;
-                playerSideB = game->players[p].hand[h].SideB;
-
-                if (playerSideA == playerSideB) {
-                    continue;
-                }
-
-                if (playerSideA == boardSideA && playerSideB == boardSideB) {
-                    turn(game, p, h);
-
-                    if (p == 1) {
-                        return 2;
-                    }
-
-                    return 1;
+                if (sum > higher) {
+                    higher = sum;
+                    playersHand[p] = i;
+                    playersScore[p] = higher;
                 }
             }
         }
     }
 
+    if (playersScore[0] > playersScore[1]) {
+        turn(game, 0, playersHand[0]);
+        return 0;
+    }
+
+    turn (game, 1, playersHand[1]);
     return 1;
 }
 
@@ -144,7 +128,7 @@ void turn(Game *game, int player, int handPosition)
     if (handPosition == -1) {
         handPosition = chooseAPiece();
     }
-printf("escolheu a posição %d\n", handPosition);
+
     for (int x = 0; x < game->players[player].total; x++) {
         if (x == handPosition) {
             Piece piece = game->players[player].hand[handPosition];
@@ -154,6 +138,9 @@ printf("escolheu a posição %d\n", handPosition);
                 int total = game->board.total;
                 game->board.pieces[total] = piece;
                 game->board.total ++;
+
+                movePlayerHand(game, player, handPosition);
+                game->players[player].total--;
 
                 break;
             }
