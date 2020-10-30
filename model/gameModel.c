@@ -2,7 +2,7 @@
 // Created by Caio Baracat on 24/09/20.
 //
 #include "gameView.h"
-
+#include <string.h>
 
 void fill(Game *game)
 {
@@ -19,10 +19,71 @@ void fill(Game *game)
 
 void setPlayers(Game *game)
 {
-    for (int i = 0; i < 2; i++) {
+    int choice = 0;
+    do {
+        choice = setPlayersMenu();
+    } while (choice != 1 && choice != 2);
+
+    for (int i = 0; i < choice; ++i) {
         Player player = newPlayer();
         game->players[i] = player;
+        game->players[i].cpu = false;
     }
+
+    if (choice == 1) {
+        printf("Entrou\n");
+        Player cpu;
+        cpu.cpu = true;
+        game->players[1] = cpu;
+    }
+}
+
+void cpu(Game *game)
+{
+    bool turnHasEnded = false;
+    bool drewOnce = false;
+    int boardTotal = game->board.total;
+    Piece firstPiece = game->board.pieces[0];
+    Piece lastPiece = game->board.pieces[boardTotal - 1];
+    Piece currentPiece;
+    int chosen = -1;
+    int option = 2;
+
+    do {
+        for (int x = 0; x < game->players[1].total; x++) {
+            currentPiece = game->players[1].hand[x];
+
+            if (firstPiece.SideA == currentPiece.SideA  || firstPiece.SideA == currentPiece.SideB) {
+                chosen = x;
+                option = 1;
+                break;
+            }
+
+            if (lastPiece.SideB == currentPiece.SideA || lastPiece.SideB == currentPiece.SideB) {
+                chosen = x;
+                option = 1;
+                break;
+            }
+        }
+
+        if (option == 2 && drewOnce == true) {
+            option = 3;
+        }
+
+        switch (option) {
+            case 1:
+                turn(game, 1, chosen);
+                turnHasEnded = true;
+                break;
+            case 2:
+                draw(game, 1, 1);
+                drewOnce = true;
+                break;
+            case 3:
+                turnHasEnded = true;
+                break;
+        }
+    } while (turnHasEnded == false);
 }
 
 void draw(Game *game, int player, int total)
@@ -198,6 +259,13 @@ bool play(Game *game, int playerTurn)
     displayPlayersHand(game, playerTurn, true);
 
     do {
+        printf("%d\n", playerTurn);
+        printf("%d\n", game->players[1].cpu);
+        if (playerTurn == 1 && game->players[1].cpu == true) {
+            printf("Entrou no if\n");
+            cpu(game);
+            break;
+        }
         option = showGameMenu();
 
         switch (option) {

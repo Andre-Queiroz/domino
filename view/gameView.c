@@ -13,10 +13,8 @@ Player newPlayer()
 {
     Player player;
     player.total = 0;
-    //printf("Insira o nome do jogador: ");
-    //scanf("%s", player.nickname);
-    player.nickname[0] = 'Z';
-    player.nickname[1] = 'e';
+    printf("Insira o nome do jogador: ");
+    scanf("%s", player.nickname);
 
     return player;
 }
@@ -63,7 +61,7 @@ void displayPlayersHand(Game *game, int turn, bool showPlayerTurnMessage)
 {
 
     if (showPlayerTurnMessage == true) {
-        printf("Vez do jogador %d\n", turn + 1);
+        printf("Vez do jogador %s\n", game->players[turn].nickname);
     }
     for (int i = 0; i < game->players[turn].total; i++) {
         printf("%d) ", i + 1);
@@ -131,4 +129,17 @@ void showRules()
            "Os jogadores contarao os pontos das pedras que ficaram; o jogador com menos pontos vence e\n"
            "somam-se os pontos da maneira habitual. Pode acontecer de voce ter os mesmos pontos que o\n"
            "jogador que tem a vantagem, nesse caso, ganha este jogador.\n\n\n");
+}
+
+int setPlayersMenu()
+{
+    int option;
+
+    printf("\nSelecione o numero de jogadores: \n");
+    printf("[1] Jogador 1 contra CPU\n");
+    printf("[2] Jogador 1 contra Jogador 2\n");
+
+    scanf("%d", &option);
+
+    return option;
 }

@@ -18,6 +18,7 @@ typedef struct Player {
     char nickname[50];
     Piece hand[21];
     int total;
+    bool cpu;
 } Player;
 
 typedef struct Heap {
@@ -75,3 +76,5 @@ void saveGame(Game * game);
 int getGreaterEqualPiece(Game *game, int playerTurn);
 
 int getGreaterPiece(Game *game, int playerTurn);
+
+void cpu(Game *game);

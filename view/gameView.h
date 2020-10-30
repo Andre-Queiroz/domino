@@ -35,3 +35,5 @@ int chooseAPiece(Game *game, int playerTurn);
 int showMainMenu();
 
 void showRules();
+
+int setPlayersMenu();
