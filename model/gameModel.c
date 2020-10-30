@@ -29,7 +29,6 @@ void draw(Game *game, int player, int total)
 {
     int access;
 
-
     for (int i = 0; i < total; i++) {
         srand(time(NULL));
         do {
@@ -126,15 +125,16 @@ void startGame(Game *game)
 void turn(Game *game, int player, int handPosition)
 {
     if (handPosition == -1) {
-        handPosition = chooseAPiece();
+        handPosition = chooseAPiece(game, player);
     }
 
     for (int x = 0; x < game->players[player].total; x++) {
         if (x == handPosition) {
             Piece piece = game->players[player].hand[handPosition];
+            display(piece);
+            printf("\n");
 
             if (game->board.total == 0) {
-                printf("A mesa está vazia, populando pela primeira vez\n");
                 int total = game->board.total;
                 game->board.pieces[total] = piece;
                 game->board.total ++;
@@ -148,23 +148,12 @@ void turn(Game *game, int player, int handPosition)
             Piece firstPieceFromBoard = game->board.pieces[0];
             Piece lastPieceFromBoard = game->board.pieces[game->board.total-1];
 
-            printf("Primeira peça: \n");
-            display(firstPieceFromBoard);
-            printf("\n");
-            printf("Ultima peça: \b");
-            display(lastPieceFromBoard);
-            printf("\n");
-
             if (!isChosenPieceValid(piece, firstPieceFromBoard, lastPieceFromBoard)) {
                 alert("Esta peça não cabe na mesa. Você perdeu a vez.\n");
                 return;
             }
 
             switchSides(&piece, firstPieceFromBoard, lastPieceFromBoard);
-
-            printf("Peça trocada: \n");
-            display(piece);
-            printf("\n");
 
             movePlayerHand(game, player, handPosition);
             game->players[player].total--;
@@ -173,14 +162,13 @@ void turn(Game *game, int player, int handPosition)
                 printf("Lado B igual ao lado A da primeira\n");
                 moveBoardPieces(game, 0);
                 game->board.pieces[0] = piece;
+                game->board.total ++;
             } else if(piece.SideA == lastPieceFromBoard.SideB) {
                 printf("Lado A igual ao lado B da ultima\n");
                 int total = game->board.total;
                 game->board.pieces[total] = piece;
+                game->board.total ++;
             }
-
-            game->board.total ++;
-
         }
     }
 }
@@ -194,13 +182,10 @@ void movePlayerHand(Game *game, int player, int from)
     }
 }
 
-void moveBoardPieces(Game *game, int from) {
-    int total = game->board.total;
-    Piece swap = game->board.pieces[from];
-
-    for (int i = from; i < total; i++) {
-        game->board.pieces[i + 1] = swap;
-        swap = game->board.pieces[i];
+void moveBoardPieces(Game *game, int from)
+{
+    for (int i = game->board.total - 1; i >= from; i--) {
+        game->board.pieces[i + 1] = game->board.pieces[i];
     }
 }
 
@@ -273,7 +258,7 @@ bool isChosenPieceValid(Piece chosenPiece, Piece firstPiece, Piece lastPiece)
         return true;
     }
 
-    if ((chosenPiece.SideA == lastPiece.SideB) || (chosenPiece.SideB == lastPiece.SideA)) {
+    if ((chosenPiece.SideA == lastPiece.SideB) || (chosenPiece.SideB == lastPiece.SideB)) {
         return true;
     }
 

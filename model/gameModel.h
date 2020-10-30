@@ -42,6 +42,8 @@ typedef struct Game {
     Player players[2];
 } Game;
 
+int firstPlayer(Game *game);
+
 void fill(Game *game);
 
 void setPlayers(Game *game);
