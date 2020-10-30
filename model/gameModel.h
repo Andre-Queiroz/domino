@@ -71,3 +71,7 @@ void switchSides(Piece *chosenPiece, Piece firstPiece, Piece lastPiece);
 Game loadLastGame();
 
 void saveGame(Game * game);
+
+int getGreaterEqualPiece(Game *game, int playerTurn);
+
+int getGreaterPiece(Game *game, int playerTurn);
