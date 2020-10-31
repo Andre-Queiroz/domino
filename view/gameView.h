@@ -37,3 +37,5 @@ int showMainMenu();
 void showRules();
 
 int setPlayersMenu();
+
+void showWinner(Game *game, int turn);

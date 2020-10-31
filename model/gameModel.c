@@ -31,7 +31,6 @@ void setPlayers(Game *game)
     }
 
     if (choice == 1) {
-        printf("Entrou\n");
         Player cpu;
         cpu.cpu = true;
         game->players[1] = cpu;
@@ -259,10 +258,7 @@ bool play(Game *game, int playerTurn)
     displayPlayersHand(game, playerTurn, true);
 
     do {
-        printf("%d\n", playerTurn);
-        printf("%d\n", game->players[1].cpu);
         if (playerTurn == 1 && game->players[1].cpu == true) {
-            printf("Entrou no if\n");
             cpu(game);
             break;
         }
@@ -313,6 +309,7 @@ bool play(Game *game, int playerTurn)
 bool isGameEnded(Game *game, int turn)
 {
     if (game->players[turn].total == 0) {
+        showWinner(game, turn);
         return true;
     }
 

@@ -143,3 +143,8 @@ int setPlayersMenu()
 
     return option;
 }
+
+void showWinner(Game *game, int turn)
+{
+    printf("Vencedor do jogo: %s", game->players[turn].nickname);
+}
